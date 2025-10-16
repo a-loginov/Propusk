@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Пропуск гостя — Школа №1409</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="icon" href="static/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: "Montserrat", sans-serif;
+      background-color: #f5f6f7;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 480px;
+      margin: 0 auto;
+      background: #fff;
+      min-height: 100vh;
+    }
+
+    /* Верхняя плашка */
+    .cover {
+      height: 35vh;
+      min-height: 220px;
+      background: linear-gradient(180deg, #3B00E7 0%, #E13E58 100%);
+      border-radius: 0 0 30px 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .cover img {
+      width: 70px;
+      margin-bottom: 10px;
+    }
+
+    .cover h1 {
+      font-size: 2rem;
+      margin: 0;
+      font-weight: 700;
+    }
+
+    /* Белая карточка */
+    .main-block {
+      background: #fff;
+      border-radius: 30px 30px 0 0;
+      padding: 40px 24px 50px;
+      margin: -30px 0 0 0;
+      text-align: center;
+      position: relative;
+      min-height: 65vh;
+    }
+
+    .title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #000;
+    }
+
+    .name {
+      font-weight: 900;
+      margin-bottom: 25px;
+      font-size: 1.2rem;
+      color: #000;
+    }
+
+    .subtitle {
+      color: #555;
+      font-size: 1.1rem;
+      line-height: 1.4;
+      margin-bottom: 28px;
+    }
+
+    /* Кнопки */
+    .btn {
+      border: none;
+      outline: none;
+      cursor: pointer;
+      display: block;
+      width: 100%;
+      max-width: 260px;
+      margin: 0 auto 16px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 14px 0;
+      color: #fff;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-blue { background: #3B00E7; }
+    .btn-red { background: #C03D52; }
+
+    /* 🔹 Красный текст вместо плашки */
+    .alert-text {
+      color: #C03D52;
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-top: 18px;
+      line-height: 1.4;
+    }
+
+    .hidden { display: none; }
+
+    @media (max-width: 480px) {
+      .cover h1 { font-size: 1.6rem; }
+      .main-block { padding: 35px 20px 45px; }
+      .btn { padding: 16px 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Верхняя часть -->
+    <div class="cover">
+      <img src="static/1409logo.svg" alt="Логотип школы 1409">
+      <h1>Пропуск гостя</h1>
+    </div>
+
+    <!-- Первый экран -->
+    <div class="main-block" id="screen1">
+      <div class="title">Пригласивший учитель: Александр С.П.</div>
+      <div class="name">Пушкин Александр Сергеевич</div>
+      <button class="btn btn-blue" onclick="showConfirm()">Я около входа</button>
+      <div class="alert-text">Не забудьте с собой паспорт РФ — он потребуется на входе.</div>
+    </div>
+
+    <!-- Экран подтверждения -->
+    <div class="main-block hidden" id="screen2">
+      <div class="title">Вы уверены?</div>
+      <div class="subtitle">Если да — учителю отправится сигнал, что вы на месте.</div>
+      <button class="btn btn-blue" onclick="success()">Да</button>
+      <button class="btn btn-red" onclick="cancel()">Нет</button>
+    </div>
+
+    <!-- Экран успеха -->
+    <div class="main-block hidden" id="screen3">
+      <div class="title">Успешно</div>
+      <div class="subtitle">Мы сообщили охране, что вы на месте.</div>
+    </div>
+  </div>
+
+  <!-- Звук -->
+  <audio id="successSound" src="static/success.mp3" preload="auto"></audio>
+
+  <script>
+    const s1 = document.getElementById('screen1');
+    const s2 = document.getElementById('screen2');
+    const s3 = document.getElementById('screen3');
+    const sound = document.getElementById('successSound');
+
+    function showConfirm() {
+      s1.classList.add('hidden');
+      s2.classList.remove('hidden');
+    }
+
+    function cancel() {
+      s2.classList.add('hidden');
+      s1.classList.remove('hidden');
+    }
+
+    function success() {
+      s2.classList.add('hidden');
+      s3.classList.remove('hidden');
+      sound.play();
+    }
+  </script>
+
+</body>
+</html>
